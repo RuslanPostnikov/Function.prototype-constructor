@@ -1,8 +1,14 @@
-function Student(name, surname, birthDate) {
+function Student(name, surname, birthday) {
     this.name = name;
     this.surname = surname;
-    this.birthdate = birthDate;
-    this.calcAge = () => Math.floor((new Date() - birthDate)/3.154e+10);
+    this.birthday = birthday;
+    Object.defineProperty(this, "age", {
+        get() {
+            let todayYear = new Date().getFullYear();
+            return todayYear - this.birthday.getFullYear();
+        }
+        })
+    // this.calcAge = () => Math.floor((new Date() - birthday)/3.154e+10);
     this.calcAvMark = () =>
         this.allMarks.reduce( (sum, current) =>  sum + current)/this.allMarks.length;
     this.attendance = new Array(10);
@@ -36,8 +42,8 @@ function Student(name, surname, birthDate) {
 }
 
 let student1 = new Student('Ruslan', 'Postnikov', new Date(1992, 7,2));
-
-student1.mark(10)
+    console.log(student1.age);
+    student1.mark(10)
 student1.mark(10)
 student1.mark(10)
 student1.mark(10)
